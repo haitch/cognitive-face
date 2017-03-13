@@ -5,7 +5,7 @@
   },
   "name": "cognitive-face",
   "description": "this is a swagger generated sdk, do not change the code directly.",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
@@ -23,5 +23,9 @@
   ],
   "author": "haitch",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/haidaocht/cognitive-face#readme"
+  "homepage": "https://bitbucket.org/haidaocht/cognitive-face#readme",
+  "files":[
+    "index.js",
+    "README.md"
+  ]
 }
