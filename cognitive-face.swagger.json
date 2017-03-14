@@ -19,7 +19,7 @@
             "name":"imageUrl",
             "in": "body",
             "schema":{
-              "$ref":"#/definitions/faceDetectByUrl"
+              "$ref":"#/definitions/faceDetectByUrlRequest"
             },
             "required":true
           },
@@ -102,6 +102,14 @@
         "operationId": "Face - Identify",
         "parameters": [
           {
+            "name":"faceIdentifyRequest",
+            "in": "body",
+            "schema":{
+              "$ref":"#/definitions/faceIdentifyRequest"
+            },
+            "required":true
+          },
+          {
             "$ref": "#/parameters/cognitive-services-apiKey"
           }
         ],
@@ -117,6 +125,40 @@
           "application/json"
         ]
       }
+    },
+    "/persongroups/{personGroupId}": {
+      "put": {
+        "description": "Create a new person group with specified personGroupId, name and user-provided userData.",
+        "operationId": "Person Group - Create a Person Group",
+        "parameters": [
+          {
+            "name": "personGroupId",
+            "in": "path",
+            "description": "User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, '-' and '_'. The maximum length of the personGroupId is 64.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name":"personGroup",
+            "in": "body",
+            "schema":{
+              "$ref":"#/definitions/personGroup"
+            },
+            "required":true
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns an empty response body."
+          }
+        }
+      }
     }
   },
   "parameters": {
@@ -129,11 +171,42 @@
     }
   },
   "definitions": {
-    "faceDetectByUrl": {
+    "faceDetectByUrlRequest": {
       "type": "object",
       "properties": {
         "url": {
           "type": "string"
+        }
+      }
+    },
+    "personGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "userData":{
+          "type":"object"
+        }
+      }
+    },
+    "faceIdentifyRequest": {
+      "type":"object",
+      "properties": {
+        "personGroupId":{
+          "type":"string"
+        },
+        "faceIds":{
+          "type":"array",
+          "items":{
+            "type": "string"
+          }
+        },
+        "maxNumOfCandidatesReturned":{
+          "type":"integer"
+        },
+        "confidenceThreshold":{
+          "type":"number"
         }
       }
     }
