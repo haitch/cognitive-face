@@ -13,7 +13,7 @@
     "/detect": {
       "post": {
         "description": "Detect **human faces** in an image and returns face locations, and optionally with faceIds, landmarks, and attributes.",
-        "operationId": "Face - Detect",
+        "operationId": "faceDetect",
         "parameters": [
           {
             "name":"imageUrl",
@@ -58,7 +58,7 @@
     "/group": {
       "post": {
         "description": "Divide candidate faces into groups based on face similarity.",
-        "operationId": "Face - Group",
+        "operationId": "group",
         "parameters": [
           {
             "$ref": "#/parameters/cognitive-services-apiKey"
@@ -99,7 +99,7 @@
     "/identify": {
       "post": {
         "description": "Identify unknown faces from a person group.",
-        "operationId": "Face - Identify",
+        "operationId": "identify",
         "parameters": [
           {
             "name":"faceIdentifyRequest",
@@ -129,7 +129,7 @@
     "/persongroups/{personGroupId}": {
       "put": {
         "description": "Create a new person group with specified personGroupId, name and user-provided userData.",
-        "operationId": "Person Group - Create a Person Group",
+        "operationId": "createPersonGroup",
         "parameters": [
           {
             "name": "personGroupId",
@@ -145,6 +145,30 @@
               "$ref":"#/definitions/personGroup"
             },
             "required":true
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns an empty response body."
+          }
+        }
+      },
+      "delete": {
+        "description": "delete a person group with specified personGroupId.",
+        "operationId": "deletePersonGroup",
+        "parameters": [
+          {
+            "name": "personGroupId",
+            "in": "path",
+            "description": "User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, '-' and '_'. The maximum length of the personGroupId is 64.",
+            "required": true,
+            "type": "string"
           },
           {
             "$ref": "#/parameters/cognitive-services-apiKey"

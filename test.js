@@ -7,12 +7,17 @@ describe('cognitive-face', function() {
   it('faceDetect', function(done) {
     var response = myCognitive.faceDetect({url:"http://dreamatico.com/data_images/face/face-1.jpg"}, config.cognitiveApiKey, true, true);
     response.then(function(result){
-      assert.equal(200, result.statusCode);
+      if(result.response.statusCode!=200){
+        console.log(result.response.statusCode);
+        console.log(result.response.body);
+      }
+      assert.notEqual(result, null);
+      assert.notEqual(result.body, null);
       done();
       // faceId: 9694693c-acc7-4dcb-88b9-3ac3f6efc993
-    }).catch(function(error){
+    }, function(error){
       console.log(error);
-      done();
+      assert.equal(false, true);
     });
   });
   it('personGroup-PUT', function(done) {
@@ -22,8 +27,13 @@ describe('cognitive-face', function() {
       done();
       // faceId: 9694693c-acc7-4dcb-88b9-3ac3f6efc993
     }).catch(function(error){
-      console.log(error);
-      done();
+      if(error.response.statusCode === 409){
+        done();
+      }else{
+        console.log(error.response.statusCode)
+        console.log(error.response.body)
+        assert.equal(false, true);
+      }
     });
   });
 });
