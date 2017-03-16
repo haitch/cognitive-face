@@ -123,6 +123,133 @@ export class DefaultApi {
     }
     /**
      * 
+     * Create a new person group with specified personGroupId, name and user-provided userData.
+     * @param personGroupId User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, &#39;-&#39; and &#39;_&#39;. The maximum length of the personGroupId is 64.
+     * @param personGroup 
+     * @param ocpApimSubscriptionKey subscription key in header
+     */
+    public createPersonGroup (personGroupId: string, personGroup: PersonGroup, ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
+        const localVarPath = this.basePath + '/persongroups/{personGroupId}'
+            .replace('{' + 'personGroupId' + '}', String(personGroupId));
+        let queryParameters: any = {};
+        let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let formParams: any = {};
+
+
+        // verify required parameter 'personGroupId' is not null or undefined
+        if (personGroupId === null || personGroupId === undefined) {
+            throw new Error('Required parameter personGroupId was null or undefined when calling createPersonGroup.');
+        }
+
+        // verify required parameter 'personGroup' is not null or undefined
+        if (personGroup === null || personGroup === undefined) {
+            throw new Error('Required parameter personGroup was null or undefined when calling createPersonGroup.');
+        }
+
+        // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
+        if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
+            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling createPersonGroup.');
+        }
+
+        headerParams['Ocp-Apim-Subscription-Key'] = ocpApimSubscriptionKey;
+
+        let useFormData = false;
+
+        let requestOptions: request.Options = {
+            method: 'PUT',
+            qs: queryParameters,
+            headers: headerParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: personGroup,
+        };
+
+        this.authentications.default.applyToRequest(requestOptions);
+
+        if (Object.keys(formParams).length) {
+            if (useFormData) {
+                (<any>requestOptions).formData = formParams;
+            } else {
+                requestOptions.form = formParams;
+            }
+        }
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            request(requestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * delete a person group with specified personGroupId.
+     * @param personGroupId User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, &#39;-&#39; and &#39;_&#39;. The maximum length of the personGroupId is 64.
+     * @param ocpApimSubscriptionKey subscription key in header
+     */
+    public deletePersonGroup (personGroupId: string, ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
+        const localVarPath = this.basePath + '/persongroups/{personGroupId}'
+            .replace('{' + 'personGroupId' + '}', String(personGroupId));
+        let queryParameters: any = {};
+        let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let formParams: any = {};
+
+
+        // verify required parameter 'personGroupId' is not null or undefined
+        if (personGroupId === null || personGroupId === undefined) {
+            throw new Error('Required parameter personGroupId was null or undefined when calling deletePersonGroup.');
+        }
+
+        // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
+        if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
+            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling deletePersonGroup.');
+        }
+
+        headerParams['Ocp-Apim-Subscription-Key'] = ocpApimSubscriptionKey;
+
+        let useFormData = false;
+
+        let requestOptions: request.Options = {
+            method: 'DELETE',
+            qs: queryParameters,
+            headers: headerParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(requestOptions);
+
+        if (Object.keys(formParams).length) {
+            if (useFormData) {
+                (<any>requestOptions).formData = formParams;
+            } else {
+                requestOptions.form = formParams;
+            }
+        }
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            request(requestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
      * Detect **human faces** in an image and returns face locations, and optionally with faceIds, landmarks, and attributes.
      * @param imageUrl 
      * @param ocpApimSubscriptionKey subscription key in header
@@ -196,7 +323,7 @@ export class DefaultApi {
      * Divide candidate faces into groups based on face similarity.
      * @param ocpApimSubscriptionKey subscription key in header
      */
-    public faceGroup (ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
+    public group (ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
         const localVarPath = this.basePath + '/group';
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -205,7 +332,7 @@ export class DefaultApi {
 
         // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
         if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
-            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling faceGroup.');
+            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling group.');
         }
 
         headerParams['Ocp-Apim-Subscription-Key'] = ocpApimSubscriptionKey;
@@ -250,7 +377,7 @@ export class DefaultApi {
      * @param faceIdentifyRequest 
      * @param ocpApimSubscriptionKey subscription key in header
      */
-    public faceIdentify (faceIdentifyRequest: FaceIdentifyRequest, ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
+    public identify (faceIdentifyRequest: FaceIdentifyRequest, ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
         const localVarPath = this.basePath + '/identify';
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -259,12 +386,12 @@ export class DefaultApi {
 
         // verify required parameter 'faceIdentifyRequest' is not null or undefined
         if (faceIdentifyRequest === null || faceIdentifyRequest === undefined) {
-            throw new Error('Required parameter faceIdentifyRequest was null or undefined when calling faceIdentify.');
+            throw new Error('Required parameter faceIdentifyRequest was null or undefined when calling identify.');
         }
 
         // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
         if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
-            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling faceIdentify.');
+            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling identify.');
         }
 
         headerParams['Ocp-Apim-Subscription-Key'] = ocpApimSubscriptionKey;
@@ -279,73 +406,6 @@ export class DefaultApi {
             useQuerystring: this._useQuerystring,
             json: true,
             body: faceIdentifyRequest,
-        };
-
-        this.authentications.default.applyToRequest(requestOptions);
-
-        if (Object.keys(formParams).length) {
-            if (useFormData) {
-                (<any>requestOptions).formData = formParams;
-            } else {
-                requestOptions.form = formParams;
-            }
-        }
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            request(requestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * Create a new person group with specified personGroupId, name and user-provided userData.
-     * @param personGroupId User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, &#39;-&#39; and &#39;_&#39;. The maximum length of the personGroupId is 64.
-     * @param personGroup 
-     * @param ocpApimSubscriptionKey subscription key in header
-     */
-    public personGroupCreateAPersonGroup (personGroupId: string, personGroup: PersonGroup, ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
-        const localVarPath = this.basePath + '/persongroups/{personGroupId}'
-            .replace('{' + 'personGroupId' + '}', String(personGroupId));
-        let queryParameters: any = {};
-        let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let formParams: any = {};
-
-
-        // verify required parameter 'personGroupId' is not null or undefined
-        if (personGroupId === null || personGroupId === undefined) {
-            throw new Error('Required parameter personGroupId was null or undefined when calling personGroupCreateAPersonGroup.');
-        }
-
-        // verify required parameter 'personGroup' is not null or undefined
-        if (personGroup === null || personGroup === undefined) {
-            throw new Error('Required parameter personGroup was null or undefined when calling personGroupCreateAPersonGroup.');
-        }
-
-        // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
-        if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
-            throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling personGroupCreateAPersonGroup.');
-        }
-
-        headerParams['Ocp-Apim-Subscription-Key'] = ocpApimSubscriptionKey;
-
-        let useFormData = false;
-
-        let requestOptions: request.Options = {
-            method: 'PUT',
-            qs: queryParameters,
-            headers: headerParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: personGroup,
         };
 
         this.authentications.default.applyToRequest(requestOptions);

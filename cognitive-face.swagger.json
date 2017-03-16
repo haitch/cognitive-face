@@ -132,11 +132,7 @@
         "operationId": "createPersonGroup",
         "parameters": [
           {
-            "name": "personGroupId",
-            "in": "path",
-            "description": "User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, '-' and '_'. The maximum length of the personGroupId is 64.",
-            "required": true,
-            "type": "string"
+            "$ref":"#/parameters/personGroupIdInPath"
           },
           {
             "name":"personGroup",
@@ -164,11 +160,7 @@
         "operationId": "deletePersonGroup",
         "parameters": [
           {
-            "name": "personGroupId",
-            "in": "path",
-            "description": "User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, '-' and '_'. The maximum length of the personGroupId is 64.",
-            "required": true,
-            "type": "string"
+            "$ref":"#/parameters/personGroupIdInPath"
           },
           {
             "$ref": "#/parameters/cognitive-services-apiKey"
@@ -192,6 +184,13 @@
       "description": "subscription key in header",
       "type": "string",
       "required": true
+    },
+    "personGroupIdInPath":{
+      "name": "personGroupId",
+      "in": "path",
+      "description": "User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, '-' and '_'. The maximum length of the personGroupId is 64.",
+      "required": true,
+      "type": "string"
     }
   },
   "definitions": {

@@ -21,19 +21,27 @@ describe('cognitive-face', function() {
     });
   });
   it('personGroup-PUT', function(done) {
-    var response = myCognitive.personGroupCreateAPersonGroup("haitaofamily", {name:"Haitao's family", data:{location:"2nd floor"}}, config.cognitiveApiKey);
+    var response = myCognitive.createPersonGroup("haitaofamily", {name:"Haitao's family", data:{location:"2nd floor"}}, config.cognitiveApiKey);
     response.then(function(result){
       assert.equal(200, result.statusCode);
-      done();
+      console.log("created, and issuing delete request");
+      return myCognitive.deletePersonGroup("haitaofamily", config.cognitiveApiKey);
       // faceId: 9694693c-acc7-4dcb-88b9-3ac3f6efc993
-    }).catch(function(error){
+    }, function(error){
       if(error.response.statusCode === 409){
-        done();
+        console.log("issuing delete request")
+        return myCognitive.deletePersonGroup("haitaofamily", config.cognitiveApiKey);
       }else{
         console.log(error.response.statusCode)
         console.log(error.response.body)
         assert.equal(false, true);
       }
+    }).then(function(result){
+      assert.equal(200, result.statusCode);
+      done();
+    })
+    .catch(function(error){
+      done();
     });
   });
 });
