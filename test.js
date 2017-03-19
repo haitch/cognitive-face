@@ -21,6 +21,7 @@ describe('cognitive-face', function() {
     });
   });
   it('personGroup-PUT', function(done) {
+    this.timeout(60 * 1000);
     var response = myCognitive.createPersonGroup("haitaofamily", {name:"Haitao's family", data:{location:"2nd floor"}}, config.cognitiveApiKey);
     response.then(function(result){
       assert.equal(200, result.statusCode);
