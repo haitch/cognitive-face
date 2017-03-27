@@ -15,7 +15,6 @@ describe('cognitive-face', function() {
       assert.notEqual(result, null);
       assert.notEqual(result.body, null);
       done();
-      // faceId: 9694693c-acc7-4dcb-88b9-3ac3f6efc993
     }, function(error){
       console.log(error);
       assert.equal(false, true);

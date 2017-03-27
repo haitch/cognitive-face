@@ -12,11 +12,11 @@
     "mocha": "^3.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/haidaocht/cognitive-face.git"
+    "url": "git+ssh://git@github.com/haitch/cognitive-face.git"
   },
   "keywords": [
     "azure",
@@ -26,7 +26,7 @@
   ],
   "author": "haitch",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/haidaocht/cognitive-face#readme",
+  "homepage": "https://github.com/haitch/cognitive-face#readme",
   "files": [
     "index.js",
     "README.md"
