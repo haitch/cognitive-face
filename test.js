@@ -20,7 +20,7 @@ describe('cognitive-face', function() {
       assert.equal(false, true);
     });
   });
-  it('personGroup-PUT', function(done) {
+  it('personGroup-PUT/Delete', function(done) {
     this.timeout(60 * 1000);
     var response = myCognitive.createPersonGroup("haitaofamily", {name:"Haitao's family", data:{location:"2nd floor"}}, apiKey);
     response.then(function(result){

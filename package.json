@@ -5,7 +5,7 @@
   },
   "name": "cognitive-face",
   "description": "this is a swagger generated sdk, do not change the code directly.",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "main": "index.js",
   "devDependencies": {
     "config": "^1.25.1",
