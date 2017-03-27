@@ -10,6 +10,16 @@
  * Do not edit the class manually.
  */
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var request = require("request");
 var Promise = require("bluebird");
@@ -30,6 +40,14 @@ var FaceIdentifyRequest = (function () {
     return FaceIdentifyRequest;
 }());
 exports.FaceIdentifyRequest = FaceIdentifyRequest;
+var GroupFaceRequest = (function (_super) {
+    __extends(GroupFaceRequest, _super);
+    function GroupFaceRequest() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return GroupFaceRequest;
+}(Array));
+exports.GroupFaceRequest = GroupFaceRequest;
 var PersonGroup = (function () {
     function PersonGroup() {
     }
@@ -297,13 +315,18 @@ var DefaultApi = (function () {
     /**
      *
      * Divide candidate faces into groups based on face similarity.
+     * @param faceIds
      * @param ocpApimSubscriptionKey subscription key in header
      */
-    DefaultApi.prototype.group = function (ocpApimSubscriptionKey) {
+    DefaultApi.prototype.group = function (faceIds, ocpApimSubscriptionKey) {
         var localVarPath = this.basePath + '/group';
         var queryParameters = {};
         var headerParams = Object.assign({}, this.defaultHeaders);
         var formParams = {};
+        // verify required parameter 'faceIds' is not null or undefined
+        if (faceIds === null || faceIds === undefined) {
+            throw new Error('Required parameter faceIds was null or undefined when calling group.');
+        }
         // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
         if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
             throw new Error('Required parameter ocpApimSubscriptionKey was null or undefined when calling group.');
@@ -317,6 +340,7 @@ var DefaultApi = (function () {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+            body: faceIds,
         };
         this.authentications.default.applyToRequest(requestOptions);
         if (Object.keys(formParams).length) {

@@ -61,6 +61,14 @@
         "operationId": "group",
         "parameters": [
           {
+            "name":"faceIds",
+            "in":"body",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/groupFaceRequest"
+            }
+          },
+          {
             "$ref": "#/parameters/cognitive-services-apiKey"
           }
         ],
@@ -200,6 +208,12 @@
         "url": {
           "type": "string"
         }
+      }
+    },
+    "groupFaceRequest": {
+      "type": "array",
+      "items": {
+        "type":"string"
       }
     },
     "personGroup": {

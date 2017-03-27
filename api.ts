@@ -33,6 +33,9 @@ export class FaceIdentifyRequest {
     'confidenceThreshold': number;
 }
 
+export class GroupFaceRequest extends Array<string> {
+}
+
 export class PersonGroup {
     'name': string;
     'userData': any;
@@ -321,14 +324,20 @@ export class DefaultApi {
     /**
      * 
      * Divide candidate faces into groups based on face similarity.
+     * @param faceIds 
      * @param ocpApimSubscriptionKey subscription key in header
      */
-    public group (ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
+    public group (faceIds: GroupFaceRequest, ocpApimSubscriptionKey: string) : Promise<{ response: http.ClientResponse; body?: any;  }> {
         const localVarPath = this.basePath + '/group';
         let queryParameters: any = {};
         let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let formParams: any = {};
 
+
+        // verify required parameter 'faceIds' is not null or undefined
+        if (faceIds === null || faceIds === undefined) {
+            throw new Error('Required parameter faceIds was null or undefined when calling group.');
+        }
 
         // verify required parameter 'ocpApimSubscriptionKey' is not null or undefined
         if (ocpApimSubscriptionKey === null || ocpApimSubscriptionKey === undefined) {
@@ -346,6 +355,7 @@ export class DefaultApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+            body: faceIds,
         };
 
         this.authentications.default.applyToRequest(requestOptions);
