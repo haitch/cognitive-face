@@ -254,6 +254,249 @@
           "application/json"
         ]
       }
+    },
+    "/persongroups/{personGroupId}/persons/{personId}": {
+      "delete": {
+        "description": "Delete an existing person from a person group. Persisted face images of the person will also be deleted.",
+        "operationId": "DeleteAPerson",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns an empty response body."
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "description": "Retrieve a person's information, including registered persisted faces, name and userData.",
+        "operationId": "GetAPerson",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns the person's information.",
+            "examples": {
+              "application/json": {
+                "personId": "25985303-c537-4467-b41d-bdb45cd95ca1",
+                "persistedFaceIds": [
+                  "015839fb-fbd9-4f79-ace9-7675fc2f1dd9",
+                  "fce92aed-d578-4d2e-8114-068f8af4492e",
+                  "b64d5e15-8257-4af2-b20a-5a750f8940e7"
+                ],
+                "name": "Ryan",
+                "userData": "User-provided data attached to the person"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "patch": {
+        "description": "Update name or userData of a person.",
+        "operationId": "UpdateAPerson",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns an empty response body."
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/persongroups/{personGroupId}/persons/{personId}/persistedFaces": {
+      "post": {
+        "description": "Add a representative face to a person for identification. The input face is specified as an image with a targetFace rectangle.",
+        "operationId": "AddPersonFace",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "name": "userData",
+            "in": "query",
+            "description": "User-specified data about the target face to add for any purpose. The maximum length is 1KB. ",
+            "type": "string"
+          },
+          {
+            "name": "targetFace",
+            "in": "query",
+            "description": "A face rectangle to specify the target face to be added to a person, in the format of \"targetFace=left,top,width,height\". E.g. \"targetFace=10,10,100,100\". If there is more than one face in the image, targetFace is required to specify which face to add. No targetFace means there is only one face detected in the entire image. ",
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "consumes": [
+          "application/json",
+          "application/octet-stream"
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns the new persistedFaceId.",
+            "examples": {
+              "application/json": {
+                "persistedFaceId": "B8D802CF-DD8F-4E61-B15C-9E6C5844CCBA"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/persongroups/{personGroupId}/persons/{personId}/persistedFaces/{persistedFaceId}": {
+      "delete": {
+        "description": "Delete a face from a person. Relative image for the persisted face will also be deleted.",
+        "operationId": "DeleteAPersonFace",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "$ref":"#/parameters/persistedFaceIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns an empty response body."
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "description": "Retrieve information about a persisted face (specified by persistedFaceId, personId and its belonging personGroupId).",
+        "operationId": "GetAPersonFace",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "$ref":"#/parameters/persistedFaceIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns target persisted face's information (persistedFaceId and userData).",
+            "examples": {
+              "application/json": {
+                "persistedFaceId": "015839fb-fbd9-4f79-ace9-7675fc2f1dd9",
+                "userData": "User-provided data attached to the person"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "patch": {
+        "description": "Update a person persisted face's userData field.",
+        "operationId": "UpdateAPersonFace",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref":"#/parameters/personIdInPath"
+          },
+          {
+            "$ref":"#/parameters/persistedFaceIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful call returns an empty response body."
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/persongroups/{personGroupId}/train": {
+      "post": {
+        "description": "Queue a person group training task, the training task may not be started immediately.",
+        "operationId": "TrainPersonGroup",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "\r\nA successful call returns an empty JSON body.\r\n  "
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "parameters": {
@@ -268,6 +511,20 @@
       "name": "personGroupId",
       "in": "path",
       "description": "User-provided personGroupId as a string. The valid characters include numbers, English letters in lower case, '-' and '_'. The maximum length of the personGroupId is 64.",
+      "required": true,
+      "type": "string"
+    },
+    "personIdInPath":{
+      "name": "personId",
+      "in": "path",
+      "description": "The target personId.",
+      "required": true,
+      "type": "string"
+    },
+    "persistedFaceIdInPath":{
+      "name": "persistedFaceId",
+      "in": "path",
+      "description": "persistedFaceId of target face, which is persisted and will not expire.",
       "required": true,
       "type": "string"
     }

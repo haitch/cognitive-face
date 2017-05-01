@@ -5,13 +5,14 @@
   },
   "name": "cognitive-face",
   "description": "this is a swagger generated sdk, do not change the code directly.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "devDependencies": {
     "config": "^1.25.1",
     "mocha": "^3.2.0"
   },
   "scripts": {
+    "build": "tsc api.ts -t ES5",
     "test": "mocha"
   },
   "repository": {
