@@ -183,6 +183,77 @@
           }
         }
       }
+    },
+    "/persongroups/{personGroupId}/persons": {
+      "post": {
+        "description": "Create a new person in a specified person group.",
+        "operationId": "CreateAPersonInGroup",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "name":"person",
+            "in": "body",
+            "schema":{
+              "$ref":"#/definitions/person"
+            },
+            "required":true
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description":"",
+            "examples": {
+              "application/json": {
+                "personId": "25985303-c537-4467-b41d-bdb45cd95ca1"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "description": "List all persons in a person group, and retrieve person information (including personId, name, userData and persistedFaceIds of registered faces of the person).",
+        "operationId": "ListPersonsInPersonGroup",
+        "parameters": [
+          {
+            "$ref":"#/parameters/personGroupIdInPath"
+          },
+          {
+            "$ref": "#/parameters/cognitive-services-apiKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description":"",
+            "examples": {
+              "application/json": [ 
+                { 
+                  "personId":"25985303-c537-4467-b41d-bdb45cd95ca1",
+                  "name":"Ryan",
+                  "userData":"User-provided data attached to the person",
+                  "persistedFaceIds":[
+                    "015839fb-fbd9-4f79-ace9-7675fc2f1dd9",
+                    "fce92aed-d578-4d2e-8114-068f8af4492e"]
+                },
+                {
+                  "personId":"2ae4935b-9659-44c3-977f-61fac20d0538","name":"David"}]
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "parameters": {
@@ -227,6 +298,18 @@
         }
       }
     },
+    "person": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "userData":{
+          "type":"object"
+        }
+      }
+    },
+
     "faceIdentifyRequest": {
       "type":"object",
       "properties": {
